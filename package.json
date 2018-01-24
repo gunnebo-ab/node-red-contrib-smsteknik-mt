@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "request": "^2.83.0",
+    "xmlbuilder": "^9.0.4",
+    "dateformat": "^3.0.2"
+  },
+  "description": "Sends SMS via smsteknik.se",
+  "devDependencies": {},
+  "directories": {},
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "name": "node-red-contrib-smsteknik-mt",
+  "node-red": {
+    "nodes": {
+      "Azure": "smsteknikmt.js"
+    }
+  },
+  "optionalDependencies": {},
+  "scripts": {},
+  "version": "0.0.1"
+}

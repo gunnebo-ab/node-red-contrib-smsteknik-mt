@@ -1,0 +1,110 @@
+<script type="text/javascript">
+    RED.nodes.registerType('SMSteknikMT', {
+        category: 'output',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+
+            data_source: {value: "properties"},
+
+            url: {value:"api.smsteknik.se", required:true},
+            company: {value:"", required:true},
+            username: {value:"", required:true},
+            password: {value:"", required:true},
+            number: {value:"", required:true},
+            message: {value: "", required:true}
+        },
+        inputs:1,
+        outputs:1,
+        icon:  function() {
+            return "sms.png";
+        },
+        label: function() {
+            return this.name || "SMS";
+        },
+
+        oneditprepare: function() {
+            const node = this;
+
+
+            $("#node-input-data_source").change(function(e) {
+                var source = $(this).children("option:selected").val();
+                if (source === "properties") {
+                    $("#node-input-parameters").show();
+                } else if(source === "payload"){
+                    $("#node-input-parameters").hide();
+                }
+            });
+            $("#node-input-data_source").val(this.data_source);
+            $("#node-input-data_source").change();
+        },
+
+        oneditsave: function() {
+            var node = this;
+            node.data_source = $("#node-input_event_data_source").children("option:selected").val();
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="SMSteknikMT">
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-data_source"><i class="icon-tag"></i>Data Source</label>
+        <select type="text" id="node-input-data_source" placeholder="data_source">
+			<option value="payload">from payload</option>
+			<option value="properties">from properties</option>
+		</select>
+    </div>
+
+    <div id="node-input-parameters">
+        <div class="form-row">
+            <label for="node-input-url"><i class="icon-tag"></i> URL</label>
+            <input type="text" id="node-input-url" placeholder="URL">
+        </div>
+
+        <div class="form-row">
+            <label for="node-input-company"><i class="icon-tag"></i> Company</label>
+            <input type="text" id="node-input-company" placeholder="Company">
+        </div>
+
+        <div class="form-row">
+            <label for="node-input-username"><i class="icon-tag"></i> Username</label>
+            <input type="text" id="node-input-username" placeholder="Username">
+        </div>
+
+        <div class="form-row">
+            <label for="node-input-password"><i class="icon-tag"></i> Password</label>
+            <input type="text" id="node-input-password" placeholder="Password">
+        </div>
+
+        <div class="form-row">
+            <label for="node-input-number"><i class="icon-tag"></i> Number</label>
+            <input type="text" id="node-input-number" placeholder="Number">
+        </div>
+
+        <div class="form-row">
+            <label for="node-input-message"><i class="icon-tag"></i> Message</label>
+            <input type="text" id="node-input-message" placeholder="Message">
+        </div>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="SMSteknikMT">
+    <p>Sends SMS via smsteknik.se</p>
+    <p>Payload sample:</p>
+    <pre>
+{
+    "Endpoint": "",
+    "Company": "",
+    "Username": "",
+    "Password": "",
+    "Number": "",
+    "Message": "",
+}
+    </pre>
+</script>
